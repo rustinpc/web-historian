@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var httpRequest = require('http-request');
+var htmlFetch = require('../workers/htmlfetcher.js');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -35,27 +36,6 @@ exports.readListOfUrls = function(callback){
 };
 
 exports.isUrlInList = function(formURL){
-  // var arrayList = 5;
-  // var testFunc = function (data) {
-  //   arrayList = data;
-  //   console.log("list ", arrayList);
-  // }
-  // this.readListOfUrls(testFunc);
-  // console.log("list 2", arrayList);
-  // return arrayList;
-
-  // var isIn = fs.readFile(this.paths.list, 'utf8', function(err,data) {
-  //   if (err) { throw err }
-  //   data = data.split("\n");
-  //   for (var i = 0; i < data.length; i++) {
-  //     if (formURL === data[i]) {
-  //       // console.log(isIn);
-  //       return true;
-  //       // console.log(isIn);
-  //     }
-  //   }
-  //   return false;
-  // };
   var listUrls = fs.readFileSync(this.paths.list, 'utf8');
   console.log(listUrls);
   data = listUrls.split("\n");
@@ -78,15 +58,59 @@ exports.addUrlToList = function(content){
   });
 };
 
-exports.isURLArchived = function(callback){
+exports.isURLArchived = function(url, callback){
   fs.readdir(this.paths.archivedSites, function(err,files) {
     if (err) { throw err; }
-    callback(files);
+    /*if (helperTwo(url, files)) {
+     // do sth
+    }*/
+    callback(url, files);
   });
 };
 // this.isURLArchived();
 
 exports.downloadUrls = function(url){
-  httpRequest.get({ "url": url }, this.paths.archivedSites + "/" + url, function(err,res) { console.log("Status code: ", res.code)});
+  httpRequest.get({ "url": url }, this.paths.archivedSites + "/" + url, function(err,res) { console.log("Status code: ")});
 };
-this.downloadUrls('www.example.com');
+// this.downloadUrls('www.example.com');
+
+
+  // var arrayList = 5;
+  // var testFunc = function (data) {
+  //   arrayList = data;
+  //   console.log("list ", arrayList);
+  // }
+  // this.readListOfUrls(testFunc);
+  // console.log("list 2", arrayList);
+  // return arrayList;
+
+  // var isIn = fs.readFile(this.paths.list, 'utf8', function(err,data) {
+  //   if (err) { throw err }
+  //   data = data.split("\n");
+  //   for (var i = 0; i < data.length; i++) {
+  //     if (formURL === data[i]) {
+  //       // console.log(isIn);
+  //       return true;
+  //       // console.log(isIn);
+  //     }
+  //   }
+  //   return false;
+  // };
+// htmlFetch.workerDownload();
+  // var isElementInList = function (elem, list) {
+  // for (var i = 0; i < list.length; i++) {
+  //   if (list[i] === elem) {return true;}
+  // }
+  // return false;
+// };
+// console.log("I ran");
+// this.readListOfUrls(function (data) {
+//   for (var i = 0; i < data.length - 1; i++) {
+//     this.isURLArchived(data[i], function (urlData, fileArray) {
+//       if (!isElementInList(urlData, fileArray)) {
+//         this.downloadUrls (urlData);
+//       }
+//     }.bind(this));
+//   }
+
+// }.bind(this));
