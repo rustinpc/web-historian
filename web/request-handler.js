@@ -21,12 +21,16 @@ exports.handleRequest = function (req, res) {
     });
 
     req.on("end", function(){
-      console.log("content", content);
+      var contentUrl = "/" + content.slice(4);
       content = content.slice(4) + "\n";
       res.writeHead(302);
       fs.appendFile(archive.paths.list, content, function (err) {
         if (err) { throw err }
-        res.end("");
+        if (routes[contentUrl]) {
+          httpHelpers.serveAssets(res, routes[contentUrl], res.end.bind(res));
+        } else {
+          httpHelpers.serveAssets(res, './public/loading.html', res.end.bind(res));
+        }
       });
     });
   } else {
