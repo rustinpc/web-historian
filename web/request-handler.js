@@ -35,6 +35,7 @@ exports.handleRequest = function (req, res) {
     });
   } else {
     var route = url.parse(req.url).pathname;
+    // CONSOLE LOG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     console.log("route", route);
     if (routes[route]) {
       res.writeHead(200, httpHelpers.headers);
