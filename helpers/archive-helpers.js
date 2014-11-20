@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var httpRequest = require('http-request');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -70,14 +71,22 @@ exports.isUrlInList = function(formURL){
 // var tester = this.isUrlInList('www.google.com');
 // console.log("tester", tester);
 
-exports.addUrlToList = function(){
-};
-
-exports.isURLArchived = function(){
-  fs.readdir('this.paths.archivedSites', function() {
-    // do something here
+exports.addUrlToList = function(content){
+  fs.appendFile(this.paths.list, content, function(err) {
+    if (err) { throw err }
+    console.log("URL has been added to txt file!")
   });
 };
 
-exports.downloadUrls = function(){
+exports.isURLArchived = function(callback){
+  fs.readdir(this.paths.archivedSites, function(err,files) {
+    if (err) { throw err; }
+    callback(files);
+  });
 };
+// this.isURLArchived();
+
+exports.downloadUrls = function(url){
+  httpRequest.get({ "url": url }, this.paths.archivedSites + "/" + url, function(err,res) { console.log("Status code: ", res.code)});
+};
+this.downloadUrls('www.example.com');

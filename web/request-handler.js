@@ -22,16 +22,15 @@ exports.handleRequest = function (req, res) {
 
     req.on("end", function(){
       var contentUrl = "/" + content.slice(4);
+      var contentForFile = content.slice(4);
       content = content.slice(4) + "\n";
       res.writeHead(302);
-      fs.appendFile(archive.paths.list, content, function (err) {
-        if (err) { throw err }
-        if (routes[contentUrl]) {
-          httpHelpers.serveAssets(res, routes[contentUrl], res.end.bind(res));
-        } else {
-          httpHelpers.serveAssets(res, './public/loading.html', res.end.bind(res));
-        }
-      });
+      if (!archive.isUrlInList(contentForFile)) {
+        archive.addUrlToList(content);
+        httpHelpers.serveAssets(res, './public/loading.html', res.end.bind(res));
+      } else {
+        httpHelpers.serveAssets(res, routes[contentUrl], res.end.bind(res));
+      }
     });
   } else {
     var route = url.parse(req.url).pathname;
