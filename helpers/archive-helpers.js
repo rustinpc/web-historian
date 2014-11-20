@@ -33,13 +33,50 @@ exports.readListOfUrls = function(callback){
   });
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(formURL){
+  // var arrayList = 5;
+  // var testFunc = function (data) {
+  //   arrayList = data;
+  //   console.log("list ", arrayList);
+  // }
+  // this.readListOfUrls(testFunc);
+  // console.log("list 2", arrayList);
+  // return arrayList;
+
+  // var isIn = fs.readFile(this.paths.list, 'utf8', function(err,data) {
+  //   if (err) { throw err }
+  //   data = data.split("\n");
+  //   for (var i = 0; i < data.length; i++) {
+  //     if (formURL === data[i]) {
+  //       // console.log(isIn);
+  //       return true;
+  //       // console.log(isIn);
+  //     }
+  //   }
+  //   return false;
+  // };
+  var listUrls = fs.readFileSync(this.paths.list, 'utf8');
+  console.log(listUrls);
+  data = listUrls.split("\n");
+  for (var i = 0; i < data.length; i++) {
+    if (formURL === data[i]) {
+        // console.log(isIn);
+      return true;
+        // console.log(isIn);
+    }
+  }
+  return false;
 };
+// var tester = this.isUrlInList('www.google.com');
+// console.log("tester", tester);
 
 exports.addUrlToList = function(){
 };
 
 exports.isURLArchived = function(){
+  fs.readdir('this.paths.archivedSites', function() {
+    // do something here
+  });
 };
 
 exports.downloadUrls = function(){
