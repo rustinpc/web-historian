@@ -21,10 +21,10 @@ archive.readListOfUrls(function (data) {
       if (!isElementInList(urlData, fileArray)) {
         archive.downloadUrls (urlData);
       }
-    }.bind(archive));
+    });
   }
 
-}.bind(archive));
+});
 };
 
 setTimeout(this.workerDownload, 5000);

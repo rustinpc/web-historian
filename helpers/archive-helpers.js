@@ -28,7 +28,7 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback){
-  fs.readFile(this.paths.list, 'utf8', function(err,data) {
+  fs.readFile(exports.paths.list, 'utf8', function(err,data) {
     if (err) { throw err }
     data = data.split("\n");
     callback(data);
@@ -59,7 +59,7 @@ exports.addUrlToList = function(content){
 };
 
 exports.isURLArchived = function(url, callback){
-  fs.readdir(this.paths.archivedSites, function(err,files) {
+  fs.readdir(exports.paths.archivedSites, function(err,files) {
     if (err) { throw err; }
     /*if (helperTwo(url, files)) {
      // do sth
