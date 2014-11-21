@@ -13,7 +13,7 @@ var isElementInList = function (elem, list) {
   }
   return false;
 };
-// console.log("I ran");
+
 exports.workerDownload = function() {
 archive.readListOfUrls(function (data) {
   for (var i = 0; i < data.length - 1; i++) {
