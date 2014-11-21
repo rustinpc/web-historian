@@ -9,8 +9,7 @@ var fs = require('fs');
 var routes = {
                "/": './public/index.html',
                "/styles.css": './public/styles.css',
-               "/loading.html": './public/loading.html',
-               "/www.google.com": '../archives/sites/www.google.com'
+               "/loading.html": './public/loading.html'
              };
 
 exports.handleRequest = function (req, res) {
