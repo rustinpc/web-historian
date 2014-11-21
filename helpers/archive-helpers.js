@@ -48,7 +48,17 @@ exports.isUrlInList = function(formURL){
   }
   return false;
 };
-// var tester = this.isUrlInList('www.google.com');
+
+exports.isURLInList = function (formURL, callback) {
+  exports.readListOfUrls(function(dataList) {
+    callback(dataList.indexOf(formURL) !== -1);
+  });
+};
+
+
+// this.isURLInList('www.google.com',function(result) {
+//   if (result) { console.log("result: true")}
+// });
 // console.log("tester", tester);
 
 exports.addUrlToList = function(content){

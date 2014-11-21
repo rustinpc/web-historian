@@ -25,12 +25,14 @@ exports.handleRequest = function (req, res) {
       var contentForFile = content.slice(4);
       content = content.slice(4) + "\n";
       res.writeHead(302);
-      if (!archive.isUrlInList(contentForFile)) {
-        archive.addUrlToList(content);
-        httpHelpers.serveAssets(res, './public/loading.html', res.end.bind(res));
-      } else {
-        httpHelpers.serveAssets(res, routes[contentUrl], res.end.bind(res));
-      }
+      archive.isURLInList(contentForFile,function(result) {
+        if (result) {
+          httpHelpers.serveAssets(res, routes[contentUrl], res.end.bind(res));
+        } else {
+          archive.addUrlToList(content);
+          httpHelpers.serveAssets(res, './public/loading.html', res.end.bind(res));
+        }
+      });
     });
   } else {
     var route = url.parse(req.url).pathname;
