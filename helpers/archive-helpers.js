@@ -71,16 +71,13 @@ exports.addUrlToList = function(content){
 exports.isURLArchived = function(url, callback){
   fs.readdir(exports.paths.archivedSites, function(err,files) {
     if (err) { throw err; }
-    /*if (helperTwo(url, files)) {
-     // do sth
-    }*/
-    callback(url, files);
+    callback(files.indexOf(url) !== -1, url);
   });
 };
 // this.isURLArchived();
 
 exports.downloadUrls = function(url){
-  httpRequest.get({ "url": url }, this.paths.archivedSites + "/" + url, function(err,res) { console.log("Status code: ")});
+  httpRequest.get({ "url": url }, this.paths.archivedSites + "/" + url, function(err,res) { console.log("Downloaded URLs")});
 };
 // this.downloadUrls('www.example.com');
 
