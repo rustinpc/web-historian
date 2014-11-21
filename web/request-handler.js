@@ -27,7 +27,13 @@ exports.handleRequest = function (req, res) {
       res.writeHead(302);
       archive.isURLInList(contentForFile,function(result) {
         if (result) {
-          httpHelpers.serveAssets(res, routes[contentUrl], res.end.bind(res));
+          archive.isURLArchived(contentForFile, function (exists) {
+            if (exists) {
+              httpHelpers.serveAssets(res, "../archives/sites" + contentUrl, res.end.bind(res));
+            } else {
+              httpHelpers.serveAssets(res, './public/loading.html', res.end.bind(res));
+            }
+          } );
         } else {
           archive.addUrlToList(content);
           httpHelpers.serveAssets(res, './public/loading.html', res.end.bind(res));
@@ -36,8 +42,6 @@ exports.handleRequest = function (req, res) {
     });
   } else {
     var route = url.parse(req.url).pathname;
-    // CONSOLE LOG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    console.log("route", route);
     if (routes[route]) {
       res.writeHead(200, httpHelpers.headers);
       httpHelpers.serveAssets(res, routes[route], res.end.bind(res));
@@ -46,12 +50,4 @@ exports.handleRequest = function (req, res) {
       res.end("");
     }
   }
-  // fs.readFile(path.join(__dirname, './public/index.html'), 'utf8', function(err,data) {
-  //                 if (err) { throw err }
-  //                 res.end(data);
-  //               });
-
-
-  // res.end(output);
 };
-  // res.end(archive.paths.list);

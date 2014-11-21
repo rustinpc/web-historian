@@ -4,3 +4,6 @@ www.example.com
 www.ebay.com
 www.walmart.com
 www.hackreactor.com
+www.yahoo.com
+www.microsoft.com
+www.hackreactor

@@ -41,9 +41,7 @@ exports.isUrlInList = function(formURL){
   data = listUrls.split("\n");
   for (var i = 0; i < data.length; i++) {
     if (formURL === data[i]) {
-        // console.log(isIn);
       return true;
-        // console.log(isIn);
     }
   }
   return false;
@@ -55,11 +53,6 @@ exports.isURLInList = function (formURL, callback) {
   });
 };
 
-
-// this.isURLInList('www.google.com',function(result) {
-//   if (result) { console.log("result: true")}
-// });
-// console.log("tester", tester);
 
 exports.addUrlToList = function(content){
   fs.appendFile(this.paths.list, content, function(err) {
@@ -74,50 +67,7 @@ exports.isURLArchived = function(url, callback){
     callback(files.indexOf(url) !== -1, url);
   });
 };
-// this.isURLArchived();
 
 exports.downloadUrls = function(url){
   httpRequest.get({ "url": url }, this.paths.archivedSites + "/" + url, function(err,res) { console.log("Downloaded URLs")});
 };
-// this.downloadUrls('www.example.com');
-
-
-  // var arrayList = 5;
-  // var testFunc = function (data) {
-  //   arrayList = data;
-  //   console.log("list ", arrayList);
-  // }
-  // this.readListOfUrls(testFunc);
-  // console.log("list 2", arrayList);
-  // return arrayList;
-
-  // var isIn = fs.readFile(this.paths.list, 'utf8', function(err,data) {
-  //   if (err) { throw err }
-  //   data = data.split("\n");
-  //   for (var i = 0; i < data.length; i++) {
-  //     if (formURL === data[i]) {
-  //       // console.log(isIn);
-  //       return true;
-  //       // console.log(isIn);
-  //     }
-  //   }
-  //   return false;
-  // };
-// htmlFetch.workerDownload();
-  // var isElementInList = function (elem, list) {
-  // for (var i = 0; i < list.length; i++) {
-  //   if (list[i] === elem) {return true;}
-  // }
-  // return false;
-// };
-// console.log("I ran");
-// this.readListOfUrls(function (data) {
-//   for (var i = 0; i < data.length - 1; i++) {
-//     this.isURLArchived(data[i], function (urlData, fileArray) {
-//       if (!isElementInList(urlData, fileArray)) {
-//         this.downloadUrls (urlData);
-//       }
-//     }.bind(this));
-//   }
-
-// }.bind(this));
